@@ -5,12 +5,14 @@ import com.cz.core.member.MemberService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class SingletonTest {
 
     @Test
     @DisplayName("스프링 없는 순수한 DI 컨테이너")
-    void pureContainer(){
+    void pureContainer(){ // Bean 으로 등록한 객체는 같은걸 반환하지 않는다 매번 새로 생성해서 반환한다 즉 싱글톤이 아니다
 
         AppConfig appConfig = new AppConfig();
 
@@ -43,6 +45,25 @@ public class SingletonTest {
         System.out.println("singletonService2 = " + singletonService2);
 
         Assertions.assertThat(singletonService1).isSameAs(singletonService2);
+    }
+
+
+    @Test
+    @DisplayName("스프링 컨테이너와 싱글톤")
+    void singletonContainer(){
+
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        MemberService memberService1 = ac.getBean("memberService", MemberService.class);
+        MemberService memberService2 = ac.getBean("memberService", MemberService.class);
+
+        // 같은 인스턴스를 반환 하는지 확인
+        System.out.println("memberService1 = " + memberService1);
+        System.out.println("memberService2 = " + memberService2);
+
+        // 참조값이 같은 것을 확인
+        Assertions.assertThat(memberService1).isSameAs(memberService2);
+
     }
 
 
