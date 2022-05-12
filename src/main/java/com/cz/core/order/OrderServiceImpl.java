@@ -1,5 +1,6 @@
 package com.cz.core.order;
 
+import com.cz.core.annotation.MainDiscountPolicy;
 import com.cz.core.discount.DiscountPolicy;
 import com.cz.core.discount.FixDiscountPolicy;
 import com.cz.core.discount.RateDiscountPolicy;
@@ -74,13 +75,32 @@ public class OrderServiceImpl implements OrderService {
 //    }
 
 
-    @Autowired // 생성자로 생성한 객체가 2개 이상일때 @Qualifier 이용해서 주입할 대상을 직접 지정해 줄 수 있다.
+
+//    @Autowired // 직접 만든 애노테이션으로 주입할 대상을 직접 지정해 줄 수 있다.
+//    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) { // bean 이름 여러개일때 이름을 지정 해준다
+//        System.out.println("memberRepository = " + memberRepository);
+//        System.out.println("discountPolicy = " + discountPolicy);
+//        this.memberRepository = memberRepository;
+//        this.discountPolicy = discountPolicy;
+//    }
+
+    @Autowired // 직접 만든 애노테이션으로 주입할 대상을 직접 지정해 줄 수 있다.
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) { // bean 이름 여러개일때 이름을 지정 해준다
         System.out.println("memberRepository = " + memberRepository);
         System.out.println("discountPolicy = " + discountPolicy);
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
+
+
+
+//    @Autowired // 생성자로 생성한 객체가 2개 이상일때 @Qualifier 이용해서 주입할 대상을 직접 지정해 줄 수 있다.
+//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) { // bean 이름 여러개일때 이름을 지정 해준다
+//        System.out.println("memberRepository = " + memberRepository);
+//        System.out.println("discountPolicy = " + discountPolicy);
+//        this.memberRepository = memberRepository;
+//        this.discountPolicy = discountPolicy;
+//    }
 
 
 
