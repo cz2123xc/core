@@ -6,10 +6,13 @@ import com.cz.core.discount.RateDiscountPolicy;
 import com.cz.core.member.Member;
 import com.cz.core.member.MemberRepository;
 import com.cz.core.member.MemoryMemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
+//@RequiredArgsConstructor // final 붙은 생성자를 자동으로 생성해준다.
 public class OrderServiceImpl implements OrderService {
 
 //    @Autowired private MemberRepository memberRepository;
@@ -51,13 +54,35 @@ public class OrderServiceImpl implements OrderService {
 //        this.discountPolicy = discountPolicy;
 //    }
 
-    @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+//    @Autowired
+//    private DiscountPolicy rateDiscountPolicy;
+
+//    @Autowired
+//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy rateDiscountPolicy) { // bean 이름 여러개일때 이름을 지정 해준다
+//        System.out.println("memberRepository = " + memberRepository);
+//        System.out.println("discountPolicy = " + rateDiscountPolicy);
+//        this.memberRepository = memberRepository;
+//        this.discountPolicy = rateDiscountPolicy;
+//    }
+
+//    @Autowired // 생성자로 생성한 객체가 2개 이상일때 @Qualifier 이용해서 주입할 대상을 직접 지정해 줄 수 있다.
+//    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) { // bean 이름 여러개일때 이름을 지정 해준다
+//        System.out.println("memberRepository = " + memberRepository);
+//        System.out.println("discountPolicy = " + discountPolicy);
+//        this.memberRepository = memberRepository;
+//        this.discountPolicy = discountPolicy;
+//    }
+
+
+    @Autowired // 생성자로 생성한 객체가 2개 이상일때 @Qualifier 이용해서 주입할 대상을 직접 지정해 줄 수 있다.
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) { // bean 이름 여러개일때 이름을 지정 해준다
         System.out.println("memberRepository = " + memberRepository);
         System.out.println("discountPolicy = " + discountPolicy);
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
+
+
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
