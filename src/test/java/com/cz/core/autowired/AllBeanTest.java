@@ -28,9 +28,6 @@ public class AllBeanTest { // map 이나 list 로 같은 생성자의 모든 bea
 
         int rateDiscountPrice = discountService.discount(member, 20000, "rateDiscountPolicy");
         Assertions.assertThat(rateDiscountPrice).isEqualTo(2000);
-
-
-
     }
 
     static class DiscountService {
